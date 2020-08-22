@@ -1,0 +1,9 @@
+.viewMat{
+    width: 85%;
+    @media (min-width: 320px) and (max-width: 768px) {
+  
+      width: 100%;    
+    }
+    margin-top: 5%;
+
+}

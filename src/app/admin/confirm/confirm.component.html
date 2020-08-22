@@ -1,0 +1,10 @@
+<div fxLayout="column" fxLayoutAlign="space-between stretch" style="height: 100%;" >
+  <div >{{data.text}} th order <span style="color: red;">{{data.data.orderNo}}</span> ??</div>
+<div fxLayout="row" fxLayoutAlign="end" fxLayoutGap.gt-md="10px"
+                  style="margin-bottom: 15px;margin-top: 5px;">
+                  <button mat-stroked-button fxFlex.lt-md="50"  mat-dialog-close >Cancel</button>
+                  <button mat-raised-button color="primary" fxFlex.lt-md="50"
+                  [mat-dialog-close]="data.data.orderNo">Complete</button>
+
+                </div>
+</div>

@@ -1,0 +1,41 @@
+
+  .matContainer{
+    padding-top: 5%;
+    padding-bottom: 15%;
+    mat-card{
+      padding: 25px;
+    }
+  }
+  .radioClassSteel{
+    margin-bottom: 10px;
+  }
+  .toolbarForm{
+    margin-bottom: 20px;
+  }
+.kgFields{
+  width: 50%;
+}
+.kgFieldsltmd{
+  width: 100%;
+}
+.mat-stepper-horizontal {
+  width: 85%;
+  @media (min-width: 320px) and (max-width: 768px) {
+  
+    width: 100%;    
+  }
+}
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none;
+}
+.headerCart{
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.btnCnfm {
+  margin-top: 15px;
+}
+.doneImage{
+  width: 100px;
+}

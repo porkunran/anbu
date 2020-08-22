@@ -1,0 +1,92 @@
+<ng-container *ngIf="errorCheck">
+  <h3 style="color:red; text-align: center;">{{error}} or Contact Anbu Trade Corporation</h3>
+</ng-container>
+<div fxLayout="row" *ngIf="dataSource" fxLayoutAlign="center center" style="padding-top: 50px;">
+  
+  <ng-container *ngIf="dataSource.length > 0; else loggedOut">
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="85 " fxFlex.lt-md="100">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <!-- Position Column -->
+        <ng-container matColumnDef="orderNo">
+          <th mat-header-cell *matHeaderCellDef> <strong> Order No </strong> </th>
+          <td mat-cell *matCellDef="let element"> {{element.orderNo}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> <strong> Name </strong></th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="orderDate">
+          <th mat-header-cell *matHeaderCellDef> <strong> Order Date </strong></th>
+          <td mat-cell *matCellDef="let element"> {{element.orderDate}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef> <strong> Address </strong></th>
+          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef> <strong> Phone Number </strong></th>
+          <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
+
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div fxLayout="column" class="width100">
+                <div fxLayout="row" fxLayoutAlign="end"  >    <button mat-button color="primary" (click)="view(element)">View</button>
+                </div>
+                <div fxLayout="row" fxLayoutGap="5px" style="margin-bottom: 5px;">
+                  <div fxFlex="25" class="pro" fxFlex.lt-md="50"><strong>Product</strong></div>
+                  <div fxFlex="25" class="pro" fxFlex.lt-md="50"><strong>Quantity</strong></div>
+                </div>
+                <div fxLayout="row" *ngFor="let a of element.product" fxLayoutGap="5px"
+                  style="border-bottom: 1px solid #fafafa;">
+                  <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.brand | uppercase}} - {{a.product | uppercase}}
+                  </div>
+                  <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.qyt}} Kgs</div>
+                </div>
+                <!-- <div class="example-element-position"> {{element.position}} </div>
+          <div class="example-element-symbol"> {{element.symbol}} </div>
+          <div class="example-element-name"> {{element.name}} </div>
+          <div class="example-element-weight"> {{element.weight}} </div> -->
+                <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap.gt-md="10px"
+                  style="margin-bottom: 15px;margin-top: 5px;">
+                  <button mat-raised-button color="primary" fxFlex.lt-md="100"
+                    (click)="edit(element)">Edit</button>
+                  <button mat-raised-button color="warn" fxFlex.lt-md="100" (click)="cancel(element)">Cancel</button>
+                  <button mat-raised-button color="accent" fxFlex.lt-md="100" (click)="priority(element)">Priority</button>
+                  <button mat-raised-button color="primary" fxFlex.lt-md="100"
+                    (click)="completeOrder(element)">Complete</button>
+
+                </div>
+              </div>
+              <!-- <div class="example-element-description">
+          {{element.description}}
+          <span class="example-element-description-attribution"> -- Wikipedia </span>
+        </div> -->
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+    </div>
+  </ng-container>
+  <ng-template #loggedOut>
+    <mat-card>
+      <h2 style="color: red;">No Orders </h2>
+    </mat-card>
+  </ng-template>
+</div>

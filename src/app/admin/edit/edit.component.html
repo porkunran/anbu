@@ -1,0 +1,137 @@
+<div fxLayout="row" fxLayoutAlign="center " class="matContainer">
+    <mat-card class="editCont" *ngIf="dataSource && form"> 
+        <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div fxLayout="column" fxLayoutAlign="center ">
+
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="name" placeholder="Enter the Name " readonly class="readonly">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="phoneNumber" (keypress)="numberOnly($event)" minlength="10"
+                        maxlength="10" placeholder="Enter the Phone Number" readonly class="readonly">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <textarea formControlName="address" rows="5" cols="5" matInput
+                        placeholder="Enter the Address" readonly class="readonly"></textarea>
+                </mat-form-field>
+                <mat-toolbar class="toolbarForm">
+                    Steel </mat-toolbar>
+                <mat-radio-group aria-label="Select an option load respective" formControlName="steelType"
+                    (change)="steelChange($event)" class="radioClassSteel">
+                    <mat-radio-button value="amman">Amman</mat-radio-button>
+                    <mat-radio-button value="tata">TATA</mat-radio-button>
+                    <mat-radio-button value="durga">Durga</mat-radio-button>
+                </mat-radio-group>
+                <div formGroupName="amman" fxLayout="column" fxLayoutAlign="center " *ngIf="matChangesteel==='amman'"
+                    [@fadeInOut]>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm8" (keypress)="numberOnly($event)" placeholder="8MM">
+                        <span matSuffix>.kg</span>
+
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm10" (keypress)="numberOnly($event)"
+                            (keypress)="numberOnly($event)" placeholder="10MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm12" (keypress)="numberOnly($event)" placeholder="12MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm16" (keypress)="numberOnly($event)" placeholder="16MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm20" (keypress)="numberOnly($event)" placeholder="20MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                </div>
+                <div formGroupName="tata" fxLayout="column" fxLayoutAlign="center " *ngIf="matChangesteel==='tata'"
+                    [@fadeInOut]>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm8" (keypress)="numberOnly($event)" placeholder="8MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm10" (keypress)="numberOnly($event)" placeholder="10MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm12" (keypress)="numberOnly($event)" placeholder="12MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm16" (keypress)="numberOnly($event)" placeholder="16MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm20" (keypress)="numberOnly($event)" placeholder="20MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                </div>
+                <div formGroupName="durga" fxLayout="column" fxLayoutAlign="center " *ngIf="matChangesteel==='durga'"
+                    [@fadeInOut]>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm8" (keypress)="numberOnly($event)" placeholder="8MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm10" (keypress)="numberOnly($event)" placeholder="10MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm12" (keypress)="numberOnly($event)" placeholder="12MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm16" (keypress)="numberOnly($event)" placeholder="16MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput formControlName="mm20" (keypress)="numberOnly($event)" placeholder="20MM">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                </div>
+                <mat-toolbar class="toolbarForm">
+                    Cement </mat-toolbar>
+                <div formGroupName="cement" fxLayout="column" fxLayoutAlign="center">
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput (keypress)="numberOnly($event)" formControlName="ultraTech"
+                            placeholder="UltraTech">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput (keypress)="numberOnly($event)" formControlName="tnpl" placeholder="Tnpl">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput (keypress)="numberOnly($event)" formControlName="chettinadu"
+                            placeholder="Chettinadu">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput (keypress)="numberOnly($event)" formControlName="ramco" placeholder="Ramco">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" ngClass="kgFields" ngClass.lt-md="kgFieldsltmd">
+                        <input matInput (keypress)="numberOnly($event)" formControlName="ramcosuper"
+                            placeholder="Ramco Super">
+                        <span matSuffix>.kg</span>
+                    </mat-form-field>
+
+                </div>
+                <mat-form-field class="example-full-width">
+                    <textarea formControlName="other" rows="5" cols="5" matInput placeholder="Other Orders"></textarea>
+                </mat-form-field>
+                <button class="btnCnfm" mat-raised-button color="primary" matStepperNext [disabled]="checkValid()"
+                    type="submit">
+                    Submit</button>
+
+            </div>
+
+        </form>
+    </mat-card>
+</div>

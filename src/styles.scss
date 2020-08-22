@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #fafafa;}
+.width100{width: 100%;};
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+#print{
+    display: none;
+  }
+
+
+@media print {
+  /* invert the display (show/hide) properties of the main */
+  /* aplication component and the printing component       */
+
+  #print {
+    display: block;
+  }
+
+  #notprint {
+    display: none !important;
+  }
+}
+.cnfDialog {
+  width: 400px;
+  height: 150px;
+}
