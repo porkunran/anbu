@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div fxLayout="row"  fxLayoutAlign="center center">
+    <mat-card fxLayout="column" fxLayoutAlign="center center" class="loginCard"> 
+        <h2>Login</h2>
+        <form class="form" [formGroup]="form" fxLayout="column" fxLayoutAlign="center " (ngSubmit)="onSubmit()">
+
+
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="name" type="text" placeholder="Enter Name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="password" type="password" placeholder="Enter Password">
+            </mat-form-field>
+            <button mat-raised-button color="primary" [disabled]="!form.valid" type="submit"> LOGIN</button>
+
+            </form>
+    </mat-card>
+</div>
