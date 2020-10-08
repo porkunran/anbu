@@ -16,6 +16,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +28,9 @@ import { CommonService } from './common.service';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader.service';
 import { TokenService } from './token.service';
+import {MatMenuModule} from '@angular/material/menu';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -55,7 +59,10 @@ import { TokenService } from './token.service';
     MatButtonModule,
     MatStepperModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatButtonToggleModule,
+    MatMenuModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [CommonService, LoaderService, { provide: HTTP_INTERCEPTORS, useClass: TokenService, multi: true }],
   bootstrap: [AppComponent]

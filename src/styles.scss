@@ -9,20 +9,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   margin-left: 16px;
 }
 
-#print{
-    display: none;
-  }
-
 
 @media print {
   /* invert the display (show/hide) properties of the main */
   /* aplication component and the printing component       */
 
-  #print {
-    display: block;
-  }
+  
 
-  #notprint {
+  .hidePrint {
     display: none !important;
   }
 }

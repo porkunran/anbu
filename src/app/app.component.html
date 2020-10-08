@@ -1,16 +1,36 @@
 <div fxLayout="column" fxLayoutAlign="space-between">
-    <mat-toolbar color="primary">
-        <mat-toolbar-row>
-          <div fxLayout="row" fxLayoutAlign="space-between" class="width100">
-            <div >Anbu Trade Corporation</div>
-            <div >   <button mat-raised-button routerLink="/admin/order">Login</button>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <div fxLayout="row" fxLayoutAlign="space-between" class="width100">
+        <div>Anbu Trade Corporation</div>
+        <div class="hidePrint">
+          <button ngStyle.gt-sm="margin-right:5px" mat-raised-button routerLink="/shop">Home</button>
+          <button ngStyle.gt-sm="margin-right:5px"  fxHide.lt-sm mat-raised-button routerLink="/admin/order">Live order</button>
+          <button ngStyle.gt-sm="margin-right:5px"  fxHide.lt-sm mat-raised-button routerLink="/admin/report">Orders</button>
+          <button fxHide.gt-sm fxHide.sm   ng mat-button [matMenuTriggerFor]="menu">Menu</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/admin/order">Live order</button>
+            <button mat-menu-item routerLink="/admin/report">Orders</button>
+          </mat-menu>
 
-            </div>
-          </div>
-        </mat-toolbar-row>
-        </mat-toolbar>
-    <div>
-      <app-loader></app-loader>
+          <!-- <ng-container *ngIf="!isValid(); else logout">
+            <button mat-raised-button routerLink="/admin/order">Login</button>
+          </ng-container>
+          <ng-template #logout>
+            <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item routerLink="/admin/order">Live order</button>
+              <button mat-menu-item routerLink="/admin/report">Orders</button>
+            </mat-menu>
+
+            <button mat-raised-button (click)="Logout()">Logout</button>
+          </ng-template> -->
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div>
+    <app-loader></app-loader>
     <router-outlet></router-outlet>
-</div>
+  </div>
 </div>

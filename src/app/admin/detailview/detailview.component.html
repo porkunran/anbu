@@ -1,27 +1,27 @@
 <div fxLatout="row" fxLayoutAlign="center">
 <mat-card class="viewMat" >
-<div fxlayouy="column" *ngIf="dataSource" fxLayoutGap="10px">
-    <div fxLayout="row">
-        <div>Order Id : {{dataSource.order.orderNo}}</div>
+<div fxlayouy="column" *ngIf="dataSource" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutAlign="center" style="margin-bottom: 10px; margin-top: 5px;" fxLayoutGap="10px">
+        <div><strong> Order Id</strong> </div><div style="color: red;"> {{dataSource.order.orderNo}}</div>
         <div></div>
     </div>
     <div class="presonal"></div>
     <div fxLayout="row">
-        <div>Name: </div>
+        <div fxFlex="15" class="labelhead">Name: </div>
         <div>{{dataSource.personal.name}}</div>
     </div>
     <div fxLayout="row">
-        <div>Phone Number: </div>
+        <div fxFlex="15" class="labelhead">Phone Number: </div>
         <div>{{dataSource.personal.phone}}</div>
     </div>
     <div fxLayout="row">
-        <div>Address: </div>
+        <div fxFlex="15" class="labelhead">Address: </div>
         <div>{{dataSource.personal.address}}</div>
     </div>
     <div class="order"></div>
-    <div class="adminView">
+    <div class="adminView hidePrint">
         <div fxLayout="row">
-            <div>Status</div>
+            <div fxFlex="15" class="labelhead">Status</div>
             <div>{{dataSource.admin.status}}</div>
         </div>
     </div>
@@ -34,14 +34,25 @@
             style="border-bottom: 1px solid #fafafa;">
             <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.brand | uppercase}} - {{a.product | uppercase}}
             </div>
-            <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.qyt}} Kgs</div>
+            <!-- <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.qyt}} {{dataSource.order.productType === '1' ? '.kg' : 'pieces'}}</div> -->
+            <ng-container *ngIf="a.brand == 'other' || a.brand == 'bestWire'; else prod ">
+                <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.qyt}} {{a.brand == 'bestWire' ? '.kg' : ''}}
+                </div>
+    
+              </ng-container>
+              <ng-template #prod>
+                <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.qyt}}
+                  {{dataSource.productType === '1' ? '.kg' : a.type == 'cement' ? 'bags' : 'pieces'}}</div>
+    
+              </ng-template>
           </div>
+          
     </div>
-    <div class="btn">
+    <div class="btn hidePrint">
         <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap.gt-md="10px" style="margin-bottom: 15px;margin-top: 5px;">
             <button mat-raised-button color="warn" fxFlex.lt-md="50" (click)="print()">Print</button>
-            <button mat-raised-button color="primary" fxFlex.lt-md="50"
-                (click)="completeOrder(element)">Complete</button>
+            <!-- <button mat-raised-button color="primary" fxFlex.lt-md="50"
+                (click)="completeOrder(dataSource.order.orderNo)">Complete</button> -->
 
         </div>
     </div>

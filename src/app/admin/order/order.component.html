@@ -2,7 +2,7 @@
   <h3 style="color:red; text-align: center;">{{error}} or Contact Anbu Trade Corporation</h3>
 </ng-container>
 <div fxLayout="row" *ngIf="dataSource" fxLayoutAlign="center center" style="padding-top: 50px;">
-  
+
   <ng-container *ngIf="dataSource.length > 0; else loggedOut">
     <div fxLayout="column" fxLayoutAlign="center center" fxFlex="85 " fxFlex.lt-md="100">
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
@@ -40,7 +40,8 @@
           <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
             <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
               <div fxLayout="column" class="width100">
-                <div fxLayout="row" fxLayoutAlign="end"  >    <button mat-button color="primary" (click)="view(element)">View</button>
+                <div fxLayout="row" fxLayoutAlign="end"> <button mat-button color="primary"
+                    (click)="view(element)">View</button>
                 </div>
                 <div fxLayout="row" fxLayoutGap="5px" style="margin-bottom: 5px;">
                   <div fxFlex="25" class="pro" fxFlex.lt-md="50"><strong>Product</strong></div>
@@ -48,20 +49,31 @@
                 </div>
                 <div fxLayout="row" *ngFor="let a of element.product" fxLayoutGap="5px"
                   style="border-bottom: 1px solid #fafafa;">
-                  <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.brand | uppercase}} - {{a.product | uppercase}}
+
+                  <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.brand | uppercase}} - {{a.product | uppercase}} 
                   </div>
-                  <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.qyt}} Kgs</div>
+                  <ng-container *ngIf="a.type == 'other' || a.type == 'bestWire'; else prod ">
+                    <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.qyt}} {{a.type == 'bestWire' ? '.kg' : ''}}
+                    </div>
+
+                  </ng-container>
+                  <ng-template #prod>
+                    <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.qyt}}
+                      {{element.productType === '1' ? '.kg' : a.type == 'cement' ? 'bags' : 'pieces'}}</div>
+
+                  </ng-template>
                 </div>
+
                 <!-- <div class="example-element-position"> {{element.position}} </div>
           <div class="example-element-symbol"> {{element.symbol}} </div>
           <div class="example-element-name"> {{element.name}} </div>
           <div class="example-element-weight"> {{element.weight}} </div> -->
                 <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap.gt-md="10px"
                   style="margin-bottom: 15px;margin-top: 5px;">
-                  <button mat-raised-button color="primary" fxFlex.lt-md="100"
-                    (click)="edit(element)">Edit</button>
+                  <button mat-raised-button color="primary" fxFlex.lt-md="100" (click)="edit(element)">Edit</button>
                   <button mat-raised-button color="warn" fxFlex.lt-md="100" (click)="cancel(element)">Cancel</button>
-                  <button mat-raised-button color="accent" fxFlex.lt-md="100" (click)="priority(element)">Priority</button>
+                  <button mat-raised-button color="accent" fxFlex.lt-md="100"
+                    (click)="priority(element)">Priority</button>
                   <button mat-raised-button color="primary" fxFlex.lt-md="100"
                     (click)="completeOrder(element)">Complete</button>
 

@@ -6,13 +6,14 @@ import { throwError, Subject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CommonService {
-  // url = 'http://intellizetech.in/anbuTrade/';
-  url = 'http://localhost:8080/anbutrade/';
+  url = 'https://intellizetech.in/anbuTrade/';
+  //  url = 'http://localhost:8080/anbutrade/';
   firstName: any;
   name: string;
   orderId: any;
   subject: any ;
   editSubject: any ;
+  loggedData: boolean;
 
   constructor(private httpClient: HttpClient) { }
   formSubmitted(value) {
@@ -75,7 +76,7 @@ export class CommonService {
     }
     // Return an observable with a user-facing error message.
     return throwError(
-      'Server Error, please try again later');
+      error.error.message);
   }
   setOrder(val) {
     console.log(val, 'subject');
@@ -137,5 +138,16 @@ loginData(val) {
     catchError(this.handleError) // then handle the error
 
   );
+}
+loggedIn(): boolean {
+  const lastname = sessionStorage.getItem('loginDetails');
+  if (lastname === null || lastname === undefined) {
+    this.loggedData = false;
+    return false;
+  } else {
+    this.loggedData = true;
+    return true;
+  }
+
 }
 }

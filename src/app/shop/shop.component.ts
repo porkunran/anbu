@@ -39,17 +39,21 @@ export class ShopComponent implements OnInit {
   error: any;
   orderId: any;
   other: string | number;
+  unit: any = '2';
+  bestWire: string | number;
 
   constructor(private formBuilder: FormBuilder, private apiService: CommonService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      address: ['', Validators.required],
+      phoneNumber: [''],
+      address: [''],
       other: [''],
-      steelType: [this.matChangesteel, Validators.required],
+      steelType: [this.matChangesteel],
+      bestWire: [''],
       amman: this.formBuilder.group({
+        mm6: [''],
         mm8: [''],
         mm10: [''],
         mm12: [''],
@@ -57,6 +61,7 @@ export class ShopComponent implements OnInit {
         mm20: ['']
       }),
       tata: this.formBuilder.group({
+        mm6: [''],
         mm8: [''],
         mm10: [''],
         mm12: [''],
@@ -64,6 +69,7 @@ export class ShopComponent implements OnInit {
         mm20: ['']
       }),
       durga: this.formBuilder.group({
+        mm6: [''],
         mm8: [''],
         mm10: [''],
         mm12: [''],
@@ -75,7 +81,8 @@ export class ShopComponent implements OnInit {
         tnpl: [''],
         chettinadu: [''],
         ramco: [''],
-        ramcosuper: ['']
+        ramcosuper: [''],
+        bharathi: ['']
       }),
     });
 
@@ -88,6 +95,8 @@ export class ShopComponent implements OnInit {
     this.cement = this.validJson(this.form.value.cement, 'cement', 'cement');
     // tslint:disable-next-line:max-line-length
     this.other = (this.form.value.other === '' || this.form.value.other === null) ? '' : this.finalValue.push({ key: 'OTHER', type: 'other', brand: 'other', value: this.form.value.other });
+    // tslint:disable-next-line:max-line-length
+    this.bestWire = (this.form.value.bestWire === '' || this.form.value.bestWire === null) ? '' : this.finalValue.push({ key: 'bestWire', type: 'bestWire', brand: 'bestWire', value: this.form.value.bestWire });
     this.personalDetails.userName = this.form.value.name;
     this.personalDetails.phoneNumber = this.form.value.phoneNumber;
     this.personalDetails.address = this.form.value.address;
@@ -100,7 +109,7 @@ export class ShopComponent implements OnInit {
   }
   checkValid() {
     // tslint:disable-next-line:max-line-length
-    if (this.form.valid && (this.form.value.amman.mm8 || this.form.value.amman.mm10 || this.form.value.amman.mm12 || this.form.value.amman.mm16 || this.form.value.amman.mm20 || this.form.value.tata.mm8 || this.form.value.tata.mm10 || this.form.value.tata.mm12 || this.form.value.tata.mm16 || this.form.value.tata.mm20 || this.form.value.durga.mm8 || this.form.value.durga.mm10 || this.form.value.durga.mm12 || this.form.value.durga.mm16 || this.form.value.durga.mm20 || this.form.value.cement.ultraTech || this.form.value.cement.tnpl || this.form.value.cement.chettinadu || this.form.value.cement.ramco || this.form.value.cement.ramcosuper)) {
+    if (this.form.valid && (this.form.value.amman.mm8 || this.form.value.amman.mm6 || this.form.value.amman.mm10 || this.form.value.amman.mm12 || this.form.value.amman.mm16 || this.form.value.amman.mm20 || this.form.value.tata.mm6 || this.form.value.tata.mm8 || this.form.value.tata.mm10 || this.form.value.tata.mm12 || this.form.value.tata.mm16 || this.form.value.tata.mm20 || this.form.value.durga.mm8 || this.form.value.durga.mm6 || this.form.value.durga.mm10 || this.form.value.durga.mm12 || this.form.value.durga.mm16 || this.form.value.durga.mm20 || this.form.value.cement.ultraTech || this.form.value.cement.tnpl || this.form.value.cement.chettinadu || this.form.value.cement.ramco || this.form.value.cement.ramcosuper || this.form.value.cement.bharathi)) {
       return false;
     } else {
       return true;
@@ -115,13 +124,14 @@ export class ShopComponent implements OnInit {
     const dataSend: any = {};
     dataSend.order = this.finalValue;
     dataSend.personalDetails = this.personalDetails;
+    dataSend.productType = this.unit;
     this.apiService.formSubmitted(dataSend).subscribe(data => {
       this.orderId = data;
       stepper.next();
     },
-    err => {
-      this.errorCheck = true;
-      this.error = err;
+      err => {
+        this.errorCheck = true;
+        this.error = err;
 
       }
 
@@ -138,6 +148,10 @@ export class ShopComponent implements OnInit {
         if (propName === 'mm8') {
           // tslint:disable-next-line:max-line-length
           this.finalValue.push({ key: '8MM', type: types, brand: company, value: obj[propName] });
+
+        } else if (propName === 'mm6') {
+          // tslint:disable-next-line:max-line-length
+          this.finalValue.push({ key: '6MM', type: types, brand: company, value: obj[propName] });
 
         } else if (propName === 'mm10') {
           this.finalValue.push({ key: '10MM', type: types, brand: company, value: obj[propName] });
@@ -170,5 +184,9 @@ export class ShopComponent implements OnInit {
     this.finalValue = [];
     this.form.markAsUntouched();
     stepper.reset();
+  }
+  unitChange(eve) {
+
+    this.unit = eve.value;
   }
 }

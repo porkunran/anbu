@@ -1,0 +1,11 @@
+.formCss{
+    width: 100%;
+}
+.loginCard{
+    width: 50%;
+    margin-top: 50px;
+    @media (min-width: 320px) and (max-width: 768px) {
+  
+        width: 100%;    
+      }
+}

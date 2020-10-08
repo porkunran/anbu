@@ -30,6 +30,7 @@ export class OrderComponent implements OnInit {
   constructor(private apiService: CommonService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
+    console.log(this.apiService.loggedIn(), 'ppppp');
     this.getData();
   }
   completeOrder(ele) {

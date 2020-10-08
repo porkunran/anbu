@@ -59,15 +59,21 @@ export class EditComponent implements OnInit {
 
    );
   }
+  onChanges(): void {
+    this.form.valueChanges.subscribe(val => {
+      console.log(val, '555');
+    });
+  }
   formBuild() {
-    console.log(this.dataSource, '8888');
     this.form = this.formBuilder.group({
       name: [this.dataSource.personal.name, Validators.required],
-      phoneNumber: [this.dataSource.personal.phone, Validators.required],
-      address: [this.dataSource.personal.address, Validators.required],
+      phoneNumber: [this.dataSource.personal.phone || ''],
+      address: [this.dataSource.personal.address || ''],
       other: [this.dataSource.product.other ? this.dataSource.product.other.OTHER : ''],
-      steelType: [this.matChangesteel, Validators.required],
+      bestWire: [this.dataSource.product.bestWire ? this.dataSource.product.bestWire.bestWire : ''],
+      steelType: [this.matChangesteel],
       amman: this.formBuilder.group({
+        mm6: [this.dataSource.product.amman ? this.dataSource.product.amman['6MM'] ? this.dataSource.product.amman['6MM'] : '' : ''],
         mm8: [this.dataSource.product.amman ? this.dataSource.product.amman['8MM'] ? this.dataSource.product.amman['8MM'] : '' : ''],
         mm10: [this.dataSource.product.amman ? this.dataSource.product.amman['10MM'] ? this.dataSource.product.amman['10MM'] : '' : ''],
         mm12: [this.dataSource.product.amman ? this.dataSource.product.amman['12MM'] ? this.dataSource.product.amman['12MM'] : '' : ''],
@@ -75,6 +81,7 @@ export class EditComponent implements OnInit {
         mm20: [this.dataSource.product.amman ? this.dataSource.product.amman['20MM'] ? this.dataSource.product.amman['20MM'] : '' : '']
       }),
       tata: this.formBuilder.group({
+        mm6: [this.dataSource.product.tata ? this.dataSource.product.tata['6MM'] ? this.dataSource.product.tata['6MM'] : '' : ''],
         mm8: [this.dataSource.product.tata ? this.dataSource.product.tata['8MM'] ? this.dataSource.product.tata['8MM'] : '' : ''],
         mm10: [this.dataSource.product.tata ? this.dataSource.product.tata['10MM'] ? this.dataSource.product.tata['10MM'] : '' : ''],
         mm12: [this.dataSource.product.tata ? this.dataSource.product.tata['12MM'] ? this.dataSource.product.tata['12MM'] : '' : ''],
@@ -82,6 +89,7 @@ export class EditComponent implements OnInit {
         mm20: [this.dataSource.product.tata ? this.dataSource.product.tata['20MM'] ? this.dataSource.product.tata['20MM'] : '' : '']
       }),
       durga: this.formBuilder.group({
+        mm6: [this.dataSource.product.durga ? this.dataSource.product.durga['6MM'] ? this.dataSource.product.durga['6MM'] : '' : ''],
         mm8: [this.dataSource.product.durga ? this.dataSource.product.durga['8MM'] ? this.dataSource.product.durga['8MM'] : '' : ''],
         mm10: [this.dataSource.product.durga ? this.dataSource.product.durga['10MM'] ? this.dataSource.product.durga['10MM'] : '' : ''],
         mm12: [this.dataSource.product.durga ? this.dataSource.product.durga['12MM'] ? this.dataSource.product.durga['12MM'] : '' : ''],
@@ -96,11 +104,15 @@ export class EditComponent implements OnInit {
         chettinadu: [this.dataSource.product.cement ? this.dataSource.product.cement.CHETTINADU ? this.dataSource.product.cement.CHETTINADU : '' : ''],
         ramco: [this.dataSource.product.cement ? this.dataSource.product.cement.RAMCO ? this.dataSource.product.cement.RAMCO : '' : ''],
         // tslint:disable-next-line:max-line-length
-        ramcosuper: [this.dataSource.product.cement ? this.dataSource.product.cement.RAMCOSUPER ? this.dataSource.product.cement.RAMCOSUPER : '' : '']
+        ramcosuper: [this.dataSource.product.cement ? this.dataSource.product.cement.RAMCOSUPER ? this.dataSource.product.cement.RAMCOSUPER : '' : ''],
+        // tslint:disable-next-line:max-line-length
+        bharathi: [this.dataSource.product.cement ? this.dataSource.product.cement.BHARATHI ? this.dataSource.product.cement.BHARATHI : '' : '']
       }),
     });
+    this.onChanges();
   }
   onSubmit() {
+    console.log(this.form.value, '99999');
     this.steelAmmaan = this.validJson(this.form.value.amman, 'amman', 'steel');
     this.steelTata = this.validJson(this.form.value.tata, 'tata', 'steel');
     this.steelDurga = this.validJson(this.form.value.durga, 'durga', 'steel');
@@ -116,6 +128,7 @@ export class EditComponent implements OnInit {
     dataSend.order = this.finalValue;
     dataSend.personalDetails = this.personalDetails;
     dataSend.orderId = this.orderId ;
+    dataSend.productType = this.dataSource.order.productType ;
     this.apiService.editSubmitted(dataSend).subscribe(data => {
       this.router.navigate(['admin/order']);
 
@@ -136,7 +149,7 @@ export class EditComponent implements OnInit {
   }
   checkValid() {
     // tslint:disable-next-line:max-line-length
-    if (this.form.valid && (this.form.value.amman.mm8 || this.form.value.amman.mm10 || this.form.value.amman.mm12 || this.form.value.amman.mm16 || this.form.value.amman.mm20 || this.form.value.tata.mm8 || this.form.value.tata.mm10 || this.form.value.tata.mm12 || this.form.value.tata.mm16 || this.form.value.tata.mm20 || this.form.value.durga.mm8 || this.form.value.durga.mm10 || this.form.value.durga.mm12 || this.form.value.durga.mm16 || this.form.value.durga.mm20 || this.form.value.cement.ultraTech || this.form.value.cement.tnpl || this.form.value.cement.chettinadu || this.form.value.cement.ramco || this.form.value.cement.ramcosuper)) {
+    if (this.form.valid && (this.form.value.amman.mm8 || this.form.value.amman.mm6 || this.form.value.amman.mm10 || this.form.value.amman.mm12 || this.form.value.amman.mm16 || this.form.value.amman.mm20 || this.form.value.tata.mm8 || this.form.value.tata.mm6 || this.form.value.tata.mm10 || this.form.value.tata.mm12 || this.form.value.tata.mm16 || this.form.value.tata.mm20 || this.form.value.durga.mm8 || this.form.value.durga.mm6 || this.form.value.durga.mm10 || this.form.value.durga.mm12 || this.form.value.durga.mm16 || this.form.value.durga.mm20 || this.form.value.cement.ultraTech || this.form.value.cement.tnpl || this.form.value.cement.chettinadu || this.form.value.cement.ramco || this.form.value.cement.ramcosuper || this.form.value.cement.bharathi)) {
       return false;
     } else {
       return true;
@@ -147,13 +160,17 @@ export class EditComponent implements OnInit {
   validJson(obj, company, types) {
 
     for (const propName in obj) {
-      if (obj[propName] === '' || obj[propName] === null || obj[propName] === undefined) {
-        delete obj[propName];
-      } else {
-        console.log('else');
+      // if (obj[propName] === '' || obj[propName] === null || obj[propName] === undefined) {
+      //   delete obj[propName];
+      // } else {
+        // console.log('else');
         if (propName === 'mm8') {
           // tslint:disable-next-line:max-line-length
           this.finalValue.push({ key: '8MM', type: types, brand: company, value: obj[propName] });
+
+        } else if (propName === 'mm6') {
+          // tslint:disable-next-line:max-line-length
+          this.finalValue.push({ key: '6MM', type: types, brand: company, value: obj[propName] });
 
         } else if (propName === 'mm10') {
           this.finalValue.push({ key: '10MM', type: types, brand: company, value: obj[propName] });
@@ -170,7 +187,7 @@ export class EditComponent implements OnInit {
 
 
       }
-    }
+    // }
 
   }
   numberOnly(event): boolean {
