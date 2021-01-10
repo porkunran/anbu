@@ -1,96 +1,166 @@
 <div fxlayout="column">
-    <mat-card fxlayout="column" >
-        <div fxLayout="row" fxLayoutAlign="center center">
-            <form class="form" [formGroup]="form" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center"
-                fxLayoutGap="15px" (ngSubmit)="onSubmit()">
-
-                <mat-form-field fxFlex="30">
-                    <input matInput [matDatepicker]="picker" formControlName="fromDate" placeholder="Choose From date">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field fxFlex="30">
-                    <input matInput [matDatepicker]="picker1" formControlName="toDate" placeholder="Choose To date">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                </mat-form-field>
-                <button mat-raised-button color="primary">Search</button>
-            </form>
-
-        </div>
-        <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 25px;">
-            <mat-radio-group aria-label="Select an option load respective" [(ngModel)]="typeValue"
-                (change)="typeChange($event)" class="radioClassSteel">
-                <mat-radio-button value="All">ALL</mat-radio-button>
-                <mat-radio-button value="Live">Live</mat-radio-button>
-                <mat-radio-button value="Completed">Completed</mat-radio-button>
-                <mat-radio-button value="Canceled">Canceled</mat-radio-button>
-            </mat-radio-group>
-        </div>
-    </mat-card>
+  <mat-card fxlayout="column">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <form
+        class="form"
+        [formGroup]="form"
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="center"
+        fxLayoutGap="15px"
+        (ngSubmit)="onSubmit()"
+      >
+        <mat-form-field fxFlex="30">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="fromDate"
+            placeholder="Choose From date"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker  #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlex="30">
+          <input
+            matInput
+            [matDatepicker]="picker1"
+            formControlName="toDate"
+            placeholder="Choose To date"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button color="primary">Search</button>
+      </form>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 25px">
+      <mat-radio-group
+        aria-label="Select an option load respective"
+        [(ngModel)]="typeValue"
+        (change)="typeChange($event)"
+        class="radioClassSteel"
+      >
+        <mat-radio-button value="All">ALL</mat-radio-button>
+        <mat-radio-button value="Live">Live</mat-radio-button>
+        <mat-radio-button value="Completed">Completed</mat-radio-button>
+        <mat-radio-button value="Canceled">Canceled</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </mat-card>
 </div>
 
 <ng-container *ngIf="errorCheck">
-    <h3 style="color:red; text-align: center;">{{error}} or Contact Anbu Trade Corporation</h3>
+  <h3 style="color: red; text-align: center">
+    {{ error }} or Contact Anbu Trade Corporation
+  </h3>
 </ng-container>
-<div fxLayout="row" *ngIf="dataSource1" fxLayoutAlign="center center" style="padding-top: 50px;">
+<div
+  fxLayout="row"
+  *ngIf="dataSource1"
+  fxLayoutAlign="center center"
+  style="padding-top: 50px"
+>
+  <ng-container *ngIf="dataSource1.length > 0; else loggedOut">
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxFlex="85 "
+      fxFlex.lt-md="100"
+    >
+      <table
+        mat-table
+        [dataSource]="dataSource1"
+        multiTemplateDataRows
+        class="mat-elevation-z8"
+      >
+        <!-- Position Column -->
+        <ng-container matColumnDef="orderNo">
+          <th mat-header-cell *matHeaderCellDef><strong> Order No </strong></th>
+          <td mat-cell *matCellDef="let element">{{ element.orderNo }}</td>
+        </ng-container>
 
-    <ng-container *ngIf="dataSource1.length > 0; else loggedOut">
-        <div fxLayout="column" fxLayoutAlign="center center" fxFlex="85 " fxFlex.lt-md="100">
-            <table mat-table [dataSource]="dataSource1" multiTemplateDataRows class="mat-elevation-z8">
-                <!-- Position Column -->
-                <ng-container matColumnDef="orderNo">
-                    <th mat-header-cell *matHeaderCellDef> <strong> Order No </strong> </th>
-                    <td mat-cell *matCellDef="let element"> {{element.orderNo}} </td>
-                </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef><strong> Name </strong></th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
 
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> <strong> Name </strong></th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="orderDate">
+          <th mat-header-cell *matHeaderCellDef>
+            <strong> Order Date </strong>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.orderDate }}</td>
+        </ng-container>
 
-                <!-- Weight Column -->
-                <ng-container matColumnDef="orderDate">
-                    <th mat-header-cell *matHeaderCellDef> <strong> Order Date </strong></th>
-                    <td mat-cell *matCellDef="let element"> {{element.orderDate}} </td>
-                </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef><strong> Address </strong></th>
+          <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef>
+            <strong> Phone Number </strong>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef><strong> status </strong></th>
+          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+        </ng-container>
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [attr.colspan]="columnsToDisplay.length"
+          >
+            <div
+              class="example-element-detail"
+              [@detailExpand]="
+                element == expandedElement ? 'expanded' : 'collapsed'
+              "
+            >
+              <div fxLayout="column" class="width100">
+                <div fxLayout="row" fxLayoutAlign="end" (click)="view(element)">
+                  view
+                </div>
 
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="address">
-                    <th mat-header-cell *matHeaderCellDef> <strong> Address </strong></th>
-                    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-                </ng-container>
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="phone">
-                    <th mat-header-cell *matHeaderCellDef> <strong> Phone Number </strong></th>
-                    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-                </ng-container>
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef> <strong> status </strong></th>
-                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-                </ng-container>
-                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-                <ng-container matColumnDef="expandedDetail">
-                    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-                        <div class="example-element-detail"
-                            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                            <div fxLayout="column" class="width100">
-                                <div fxLayout="row" fxLayoutAlign="end" (click)="view(element)">view</div>
-
-                                <div fxLayout="row" fxLayoutGap="5px" style="margin-bottom: 5px;">
-                                    <div fxFlex="25" class="pro" fxFlex.lt-md="50"><strong>Product</strong></div>
-                                    <div fxFlex="25" class="pro" fxFlex.lt-md="50"><strong>Quantity</strong></div>
-                                </div>
-                                <div fxLayout="row" *ngFor="let a of element.product" fxLayoutGap="5px"
-                                    style="border-bottom: 1px solid #fafafa;">
-                                    <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.brand | uppercase}} -
-                                        {{a.product | uppercase}}
-                                    </div>
-                                    <div fxFlex="25" class="pro" fxFlex.lt-md="50">{{a.qyt}} Kgs</div>
-                                </div>
-                                <!-- <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap.gt-md="10px"
+                <div
+                  fxLayout="row"
+                  fxLayoutGap="5px"
+                  style="margin-bottom: 5px"
+                >
+                  <div fxFlex="25" class="pro" fxFlex.lt-md="50">
+                    <strong>Product</strong>
+                  </div>
+                  <div fxFlex="25" class="pro" fxFlex.lt-md="50">
+                    <strong>Quantity</strong>
+                  </div>
+                </div>
+                <div
+                  fxLayout="row"
+                  *ngFor="let a of element.product"
+                  fxLayoutGap="5px"
+                  style="border-bottom: 1px solid #fafafa"
+                >
+                  <div fxFlex="25" class="pro" fxFlex.lt-md="50">
+                    {{ a.brand | uppercase }} -
+                    {{ a.product | uppercase }}
+                  </div>
+                  <div fxFlex="25" class="pro" fxFlex.lt-md="50">
+                    {{ a.qyt }} Kgs
+                  </div>
+                </div>
+                <!-- <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap.gt-md="10px"
                                     style="margin-bottom: 15px;margin-top: 5px;">
                                     <button mat-raised-button color="warn" fxFlex.lt-md="50"
                                         (click)="priority(element)">Priority</button>
@@ -98,24 +168,32 @@
                                         (click)="completeOrder(element)">Complete</button>
 
                                 </div> -->
-                            </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
 
-                        </div>
-                    </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-                <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
-                    [class.example-expanded-row]="expandedElement === element"
-                    (click)="expandedElement = expandedElement === element ? null : element">
-                </tr>
-                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-            </table>
-        </div>
-    </ng-container>
-    <ng-template #loggedOut>
-        <mat-card>
-            <h2 style="color: red;">No Orders </h2>
-        </mat-card>
-    </ng-template>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: columnsToDisplay"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="
+            expandedElement = expandedElement === element ? null : element
+          "
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['expandedDetail']"
+          class="example-detail-row"
+        ></tr>
+      </table>
+    </div>
+  </ng-container>
+  <ng-template #loggedOut>
+    <mat-card>
+      <h2 style="color: red">No Orders</h2>
+    </mat-card>
+  </ng-template>
 </div>

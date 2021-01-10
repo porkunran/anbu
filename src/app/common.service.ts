@@ -150,4 +150,11 @@ loggedIn(): boolean {
   }
 
 }
+getPriceList() {
+  return this.httpClient.get(this.url + 'priceDetails.php').pipe(
+    retry(3),
+    catchError(this.handleError) // then handle the error
+
+  );
+}
 }

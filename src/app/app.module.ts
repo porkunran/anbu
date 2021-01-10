@@ -17,6 +17,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +34,7 @@ import { TokenService } from './token.service';
 import {MatMenuModule} from '@angular/material/menu';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { PriceListComponent } from './price-list/price-list.component';
 
 
 @NgModule({
@@ -39,7 +43,8 @@ import { environment } from '../environments/environment';
     ShopComponent,
     CheckoutComponent,
     SucessComponent,
-    LoaderComponent
+    LoaderComponent,
+    PriceListComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +67,9 @@ import { environment } from '../environments/environment';
     MatProgressSpinnerModule,
     MatButtonToggleModule,
     MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [CommonService, LoaderService, { provide: HTTP_INTERCEPTORS, useClass: TokenService, multi: true }],
